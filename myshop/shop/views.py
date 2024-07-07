@@ -1,5 +1,6 @@
 from django.shortcuts import render ,get_object_or_404
 from .models import Product,Category
+from cart.forms import CartAddProductForm
 
 # Create your views here.
 
@@ -14,6 +15,8 @@ def product_list(request,category_slug=None):
         category = get_object_or_404(Category,slug=category_slug)
         
         products = products.filter(category=category)
+        
+        cart_product_form = CartAddProductForm()
         
         
     return render(
