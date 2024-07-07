@@ -5,10 +5,10 @@ from shop.models import Product
 
 class Cart:
     def __init__(self,request):
-        self.sessions = request.sessions
-        cart = self.sessions(settings.CART_SESSION_ID)
+        self.session = request.session
+        cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
-            cart = self.sessions[settings.CART_SESSION_ID]={}
+            cart = self.session[settings.CART_SESSION_ID]={}
         self.cart = cart
         
         
@@ -35,7 +35,7 @@ class Cart:
     # save the cart for the user
     def save(self):
         # mark the session as "modified" to make sure it gets saved
-        self.sessions.modified = True
+        self.session.modified = True
         
         
     def remove(self,product):
@@ -74,5 +74,5 @@ class Cart:
     
     # delete the sessions 
     def clear(self):
-        del self.sessions[settings.CART_SESSION_ID]
+        del self.session[settings.CART_SESSION_ID]
         self.save()
