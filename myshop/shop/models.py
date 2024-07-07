@@ -22,7 +22,7 @@ class Category(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('shop:product_list_by_category',args=self.slug)
+        return reverse('shop:product_list_by_category',args=[self.slug])
     
 
 
